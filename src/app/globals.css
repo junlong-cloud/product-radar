@@ -1,0 +1,229 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-body), "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), "Times New Roman", serif;
+  --font-mono: ui-monospace, "JetBrains Mono", monospace;
+  --font-heading: var(--font-display);
+
+  --color-canvas: #f4f6fa;
+  --color-canvas-deep: #eceff5;
+  --color-ink: #0e1320;
+  --color-ink-soft: #4b5566;
+  --color-ink-muted: #8a92a6;
+  --color-line: #e3e6ee;
+  --color-line-strong: #c8cdda;
+  --color-accent: #225cff;
+  --color-accent-strong: #1a48cc;
+  --color-lime: #d8ff4a;
+  --color-night: #0a0d18;
+  --color-night-soft: #131826;
+  --color-good: #15c26a;
+  --color-warm: #ff7a3d;
+  --color-rose: #ff4d6d;
+
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-ink);
+  --color-primary: var(--color-ink);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #ffffff;
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: #f0f2f7;
+  --color-muted-foreground: var(--color-ink-soft);
+  --color-accent-foreground: #ffffff;
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-accent);
+  --color-destructive: var(--color-rose);
+
+  --radius: 0.875rem;
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.4);
+}
+
+:root {
+  --background: #f4f6fa;
+  --foreground: #0e1320;
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: #fff;
+  }
+}
+
+/* Eyebrow / overline */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.hairline {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 760;
+  letter-spacing: -0.025em;
+  line-height: 0.92;
+}
+
+/* Dot pattern background used in hero */
+.dot-field {
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(34, 92, 255, 0.55) 0 3px, transparent 4px),
+    radial-gradient(circle at 80% 11%, rgba(255, 122, 61, 0.55) 0 3px, transparent 4px),
+    radial-gradient(circle at 36% 72%, rgba(21, 194, 106, 0.55) 0 3px, transparent 4px),
+    radial-gradient(circle at 62% 41%, rgba(14, 19, 32, 0.85) 0 3px, transparent 4px),
+    radial-gradient(circle at 92% 80%, rgba(34, 92, 255, 0.45) 0 3px, transparent 4px),
+    radial-gradient(circle at 8% 88%, rgba(14, 19, 32, 0.65) 0 3px, transparent 4px),
+    radial-gradient(circle at 50% 8%, rgba(21, 194, 106, 0.45) 0 3px, transparent 4px),
+    radial-gradient(circle at 22% 55%, rgba(14, 19, 32, 0.55) 0 2px, transparent 3px);
+  background-size: 100% 100%;
+}
+
+/* Faint connector lines crossing the hero */
+.dot-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(120deg, transparent 49.85%, rgba(14, 19, 32, 0.06) 49.85% 50.05%, transparent 50.05%),
+    linear-gradient(60deg, transparent 49.85%, rgba(14, 19, 32, 0.06) 49.85% 50.05%, transparent 50.05%);
+  background-size: 220px 220px;
+  pointer-events: none;
+}
+
+/* Pill-style chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 1.85rem;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  transition: all 0.15s ease;
+}
+.chip:hover { border-color: var(--color-ink); color: var(--color-ink); }
+.chip[data-active="true"] {
+  background: var(--color-ink);
+  color: #fff;
+  border-color: var(--color-ink);
+}
+.chip[data-tone="lime"] { background: var(--color-lime); color: var(--color-ink); border-color: transparent; }
+
+/* CTA button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.6rem;
+  padding: 0 1.1rem;
+  border-radius: 0.7rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border: 1px solid var(--color-line-strong);
+  background: #fff;
+  color: var(--color-ink);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.btn:hover { border-color: var(--color-ink); }
+.btn-primary { background: var(--color-ink); color: #fff; border-color: var(--color-ink); }
+.btn-primary:hover { background: #1f2a44; }
+.btn-lime { background: var(--color-lime); color: var(--color-ink); border-color: transparent; }
+.btn-lime:hover { background: #c5ec33; }
+
+/* Card surface */
+.surface {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+}
+.surface-night {
+  background: var(--color-night);
+  color: #fff;
+  border-radius: 1.25rem;
+}
+
+/* Topbar pill nav */
+.tabpill {
+  display: inline-flex;
+  height: 2.1rem;
+  padding: 0 0.95rem;
+  align-items: center;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--color-ink-soft);
+  transition: all 0.15s ease;
+}
+.tabpill[data-active="true"] {
+  background: var(--color-ink);
+  color: #fff;
+}
+.tabpill:hover { color: var(--color-ink); }
+
+/* Anchor scroll offset for sticky topbar */
+section[id], div[id] {
+  scroll-margin-top: 88px;
+}
+
+/* 小红书 brand color button */
+.btn-xhs {
+  background: #ff2442;
+  color: #fff;
+  border-color: transparent;
+}
+.btn-xhs:hover {
+  background: #e51736;
+}
+
+/* Score bar */
+.scorebar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-canvas-deep);
+  overflow: hidden;
+}
+.scorebar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
