@@ -105,13 +105,6 @@ export function Hero() {
             每周一 8:00 更新
           </span>
           <a
-            href="#skills"
-            className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] border border-[#fffdf9]/15 bg-[#fffdf9]/[0.04] px-3 py-1.5 font-mono text-[12px] tracking-wide text-[#fffdf9]/80 transition-colors hover:border-accent hover:bg-accent/10 hover:text-[#fffdf9]"
-          >
-            GitHub 周度榜单
-            <span className="text-accent">↓</span>
-          </a>
-          <a
             href="https://github-zh-trending.netlify.app/"
             target="_blank"
             rel="noreferrer"
@@ -119,6 +112,13 @@ export function Hero() {
           >
             GitHub 中文榜单
             <span className="text-accent">↗</span>
+          </a>
+          <a
+            href="#skills"
+            className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] border border-[#fffdf9]/15 bg-[#fffdf9]/[0.04] px-3 py-1.5 font-mono text-[12px] tracking-wide text-[#fffdf9]/80 transition-colors hover:border-accent hover:bg-accent/10 hover:text-[#fffdf9]"
+          >
+            GitHub 周度新星
+            <span className="text-accent">↓</span>
           </a>
         </div>
 
