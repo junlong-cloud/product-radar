@@ -277,6 +277,8 @@ section[id], div[id] {
   animation: radar-sweep 6s linear infinite;
   mix-blend-mode: screen;
   opacity: 0.85;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* 雷达同心圆 */
@@ -305,6 +307,7 @@ section[id], div[id] {
   border: 1px solid rgba(255, 90, 54, 0.5);
   border-radius: 50%;
   animation: ring-pulse 4s ease-out infinite;
+  will-change: transform, opacity;
 }
 .radar-pulse.delay-1 { animation-delay: 1.3s; }
 .radar-pulse.delay-2 { animation-delay: 2.6s; }
@@ -323,6 +326,7 @@ section[id], div[id] {
   animation: signal-cycle 9s ease-in-out infinite;
   pointer-events: none;
   transform-origin: left center;
+  will-change: transform, opacity;
 }
 .signal-dot {
   width: 6px; height: 6px;
@@ -362,12 +366,8 @@ section[id], div[id] {
 }
 .hero-rise { animation: hero-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
-/* 网格背景轻微推移 */
-@keyframes grid-drift {
-  from { background-position: 0 0, 0 0, 50% 0%; }
-  to   { background-position: 64px 64px, 64px 64px, 50% 0%; }
-}
-.dial-field { animation: grid-drift 18s linear infinite; }
+/* 网格背景：保持静态，原本的 grid-drift 会让整屏每帧重绘，CPU 占用过高 */
+/* 如需恢复，把下面 @keyframes 和 .dial-field animation 解开即可，但建议不要 */
 
 /* 标题闪烁光标 */
 @keyframes caret-blink {
