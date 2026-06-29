@@ -22,8 +22,10 @@ jobs:
         with:
           node-version: "22"
 
-      - name: 抓 GitHub Trending Weekly + Claude 翻译，重写 rising 块
+      - name: 抓 GitHub Trending Weekly + LLM 翻译，重写 rising 块
         env:
+          # 二选一即可：脚本优先 DeepSeek（更便宜、中文好），fallback 到 Claude
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/refresh-trending.mjs
 

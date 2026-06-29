@@ -126,11 +126,14 @@ function entry(repo) {
   },`;
 }
 
-// 调用 Claude API 把 10 条英文 desc 一次翻译 + 提炼成中文，并给每个 repo 写一句"为什么值得看"
+// 一次性把 10 条英文 desc 翻译 + 提炼成中文。优先 DeepSeek（中文母语、便宜），回退 Claude。
 async function translateBatch(repos) {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    console.log("  (未设置 ANTHROPIC_API_KEY，跳过翻译，保留英文 desc)");
+  const deepseekKey = process.env.DEEPSEEK_API_KEY;
+  const anthropicKey = process.env.ANTHROPIC_API_KEY;
+  const provider = deepseekKey ? "deepseek" : anthropicKey ? "anthropic" : null;
+
+  if (!provider) {
+    console.log("  (未设置 DEEPSEEK_API_KEY 或 ANTHROPIC_API_KEY，跳过翻译)");
     return repos;
   }
 
@@ -157,36 +160,71 @@ ${JSON.stringify(items, null, 2)}
   {"i":1,"zhOneLiner":"...","zhWhy":"..."}
 ]`;
 
-  console.log("→ Calling Claude API (haiku-4-5) 翻译 + 提炼");
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 3000,
-      messages: [{ role: "user", content: prompt }],
-    }),
-  });
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error(`Claude API HTTP ${res.status}: ${errText.slice(0, 300)}`);
+  let text;
+  if (provider === "deepseek") {
+    console.log("→ Calling DeepSeek API (deepseek-chat) 翻译 + 提炼");
+    const res = await fetch("https://api.deepseek.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${deepseekKey}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "deepseek-chat",
+        max_tokens: 3000,
+        temperature: 0.3,
+        response_format: { type: "json_object" },
+        messages: [
+          {
+            role: "system",
+            content:
+              "你是一个严格按用户要求输出 JSON 的助手。回复必须是合法 JSON，且包含一个 key 为 \"results\" 的数组。",
+          },
+          { role: "user", content: prompt + "\n\n注意：把结果包成 {\"results\":[...]}。" },
+        ],
+      }),
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`DeepSeek API HTTP ${res.status}: ${errText.slice(0, 300)}`);
+    }
+    const data = await res.json();
+    text = data.choices?.[0]?.message?.content?.trim() ?? "";
+  } else {
+    console.log("→ Calling Claude API (haiku-4-5) 翻译 + 提炼");
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": anthropicKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 3000,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Claude API HTTP ${res.status}: ${errText.slice(0, 300)}`);
+    }
+    const data = await res.json();
+    text = data.content?.[0]?.text?.trim() ?? "";
   }
-  const data = await res.json();
-  const text = data.content?.[0]?.text?.trim() ?? "";
+
   // 防御性剥离可能的 code fence
   const jsonText = text.replace(/^```(?:json)?\s*/, "").replace(/```\s*$/, "");
   let parsed;
   try {
-    parsed = JSON.parse(jsonText);
-  } catch (e) {
-    throw new Error(`Claude 返回不是合法 JSON：${text.slice(0, 200)}`);
+    const raw = JSON.parse(jsonText);
+    // DeepSeek 用 response_format=json_object 时会包成 {"results":[...]}；Claude 直接返回数组
+    parsed = Array.isArray(raw) ? raw : raw.results;
+  } catch {
+    throw new Error(`返回不是合法 JSON：${text.slice(0, 200)}`);
   }
   if (!Array.isArray(parsed) || parsed.length !== repos.length) {
-    throw new Error(`Claude 返回数组长度不对：期望 ${repos.length}，实际 ${parsed?.length}`);
+    throw new Error(`返回数组长度不对：期望 ${repos.length}，实际 ${parsed?.length}`);
   }
 
   // 按 i 写回（即便顺序乱也能对齐）
@@ -196,7 +234,7 @@ ${JSON.stringify(items, null, 2)}
     if (item.zhOneLiner) r.zhOneLiner = String(item.zhOneLiner).trim();
     if (item.zhWhy) r.zhWhy = String(item.zhWhy).trim();
   }
-  console.log(`✓ 翻译完成（${parsed.length} 条）`);
+  console.log(`✓ 翻译完成（${parsed.length} 条，via ${provider}）`);
   return repos;
 }
 
