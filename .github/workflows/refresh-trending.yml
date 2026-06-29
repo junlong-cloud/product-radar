@@ -1,0 +1,38 @@
+name: 刷新本周新星
+
+on:
+  schedule:
+    # 每周一北京时间 08:05 = UTC 00:05
+    # 避开整点 cron 拥堵；GitHub Actions 官方建议错峰
+    - cron: "5 0 * * 1"
+  workflow_dispatch: # 也允许手动触发（Actions 页面点 Run workflow）
+
+permissions:
+  contents: write # 需要 push commit
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉代码
+        uses: actions/checkout@v4
+
+      - name: 装 Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 抓 GitHub Trending Weekly 并重写 rising 块
+        run: node scripts/refresh-trending.mjs
+
+      - name: 如有改动则提交并推送
+        run: |
+          if git diff --quiet src/lib/radar-data.ts; then
+            echo "本周 trending 没变化，跳过提交。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/lib/radar-data.ts
+          git commit -m "data: refresh rising trending ($(date -u +%Y-%m-%d))"
+          git push
