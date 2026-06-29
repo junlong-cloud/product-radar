@@ -90,13 +90,26 @@ export function Hero() {
           className="hero-rise mt-10 max-w-[680px] text-[16px] leading-relaxed text-[#fffdf9]/75 sm:text-[18px]"
           style={{ animationDelay: "0.35s" }}
         >
-          转 AI 产品经理，不必从零摸索。
-          这里替你筛好<span className="text-accent">必学知识 · 必读书籍 · 必看网站 · 必装软件 · 必装 Skills</span>，
+          学 AI 产品经理，不必从零摸索。
+          这里替你筛选好<span className="text-accent">必学知识 · 必读书籍 · 必看网站 · 必装软件 · 必装 Skills</span>，
           每周更新，打开就能用 —— 把摸索的时间，省下来做产品。
         </p>
 
+        {/* 姐妹项目入口 */}
+        <a
+          href="https://github-zh-trending.netlify.app/"
+          target="_blank"
+          rel="noreferrer"
+          className="hero-rise mt-6 inline-flex w-fit items-center gap-2 rounded-[var(--radius-sm)] border border-[#fffdf9]/15 bg-[#fffdf9]/[0.04] px-3 py-1.5 font-mono text-[12px] tracking-wide text-[#fffdf9]/80 transition-colors hover:border-accent hover:bg-accent/10 hover:text-[#fffdf9]"
+          style={{ animationDelay: "0.45s" }}
+        >
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          姐妹项目 · GitHub 中文榜单
+          <span className="text-accent">↗</span>
+        </a>
+
         <nav
-          className="hero-rise mt-14 flex flex-wrap gap-3"
+          className="hero-rise mt-10 flex flex-wrap gap-3"
           style={{ animationDelay: "0.55s" }}
           aria-label="板块导航"
         >
