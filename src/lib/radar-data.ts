@@ -291,25 +291,25 @@ export const heroStats = {
 /* ---- starter skills ---- */
 
 export type SkillCategory =
-  | "starter"
   | "rising"
+  | "starter"
   | "pm"
   | "visual"
   | "office"
   | "fullstack";
 
 export const skillCategoryLabels: Record<SkillCategory, string> = {
-  starter: "新手必装",
   rising: "本周新星",
-  pm: "产品经理必装",
+  starter: "新手必装",
+  pm: "产品经理",
   visual: "页面视觉",
   office: "日常办公",
   fullstack: "全栈开发",
 };
 
 export const skillCategoryBlurb: Record<SkillCategory, string> = {
-  starter: "第一个晚上把这几个装上，往后就不慌。",
   rising: "基于 GitHub Trending Weekly 候选池，按本周新增 stars 重新排序的开源新星 TOP 10。",
+  starter: "第一个晚上把这几个装上，往后就不慌。",
   pm: "产品经理圈子里反复被推荐的 16 个 Skill。",
   visual: "让你的小项目看起来不像周末作业。",
   office: "把日常重复劳动塞进流水线。",

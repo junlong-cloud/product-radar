@@ -12,7 +12,7 @@ import { ChannelHead } from "./ChannelHead";
 const categories = Object.keys(skillCategoryLabels) as SkillCategory[];
 
 export function SkillsSection() {
-  const [active, setActive] = useState<SkillCategory>("starter");
+  const [active, setActive] = useState<SkillCategory>("rising");
   const items = starterSkills.filter((s) => s.category === active);
 
   return (
