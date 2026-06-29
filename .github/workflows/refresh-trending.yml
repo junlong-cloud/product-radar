@@ -22,7 +22,9 @@ jobs:
         with:
           node-version: "22"
 
-      - name: 抓 GitHub Trending Weekly 并重写 rising 块
+      - name: 抓 GitHub Trending Weekly + Claude 翻译，重写 rising 块
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/refresh-trending.mjs
 
       - name: 如有改动则提交并推送
