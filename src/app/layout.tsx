@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Noto_Sans_SC, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Noto_Sans_SC({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["900"],
 });
 
 const body = Inter({
   variable: "--font-body",
   subsets: ["latin"],
+});
+
+const mono = JetBrains_Mono({
+  variable: "--font-mono-radar",
+  subsets: ["latin"],
+  weight: ["500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-ink">
         {children}

@@ -69,9 +69,9 @@ export const softwareList: SoftwareItem[] = [
     name: "Skillhub",
     category: "Skill 管理",
     tagline: "Skill 仓库",
-    oneLiner: "管理和分发 Claude Skills 的工具集（暂位 —— 等你补具体链接）。",
-    whyInstall: "想把「我做过的事」沉淀成可复用 skill，需要一个集中位。",
-    link: "#",
-    badge: "new",
+    oneLiner: "讯飞开源的 Claude Skills 集中管理工具，浏览、安装、分发一站式。",
+    whyInstall: "想把「我做过的事」沉淀成可复用 skill，需要一个能统一管理和分享的本地中心。",
+    link: "https://github.com/iflytek/skillhub",
+    badge: "must",
   },
 ];

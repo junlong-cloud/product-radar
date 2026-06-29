@@ -15,13 +15,14 @@ export const knowledgeKindLabels: Record<KnowledgeKind, string> = {
   video: "视频",
 };
 
+/* 统一到主题色阶：暖纸 + 信号橙 + 深墨，避免 chip 颜色与 hero 调色不搭 */
 export const knowledgeKindTint: Record<KnowledgeKind, string> = {
-  basics: "#225cff",
-  method: "#15c26a",
-  skill: "#9fb6ff",
-  tweet: "#d8ff4a",
-  doc: "#ff7a3d",
-  video: "#ff4d6d",
+  basics: "#1b1a16", // 深墨 —— 基础概念，最稳重
+  method: "#ff5a36", // 信号橙 —— 方法框架，关键
+  skill:  "#1f7a6c", // 仪表盘绿 —— 软技能，偏内功
+  tweet:  "#5c5848", // 中灰墨 —— 推文，轻量
+  doc:    "#e6481f", // 信号橙深 —— 文章，深入
+  video:  "#948f7c", // 暖灰 —— 视频，辅助
 };
 
 export type KnowledgeItem = {

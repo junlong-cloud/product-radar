@@ -9,41 +9,42 @@
   --color-foreground: var(--foreground);
 
   --font-sans: var(--font-body), "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), "Times New Roman", serif;
-  --font-mono: ui-monospace, "JetBrains Mono", monospace;
+  --font-display: var(--font-display), "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: var(--font-mono-radar), ui-monospace, "JetBrains Mono", monospace;
   --font-heading: var(--font-display);
 
-  --color-canvas: #f4f6fa;
-  --color-canvas-deep: #eceff5;
-  --color-ink: #0e1320;
-  --color-ink-soft: #4b5566;
-  --color-ink-muted: #8a92a6;
-  --color-line: #e3e6ee;
-  --color-line-strong: #c8cdda;
-  --color-accent: #225cff;
-  --color-accent-strong: #1a48cc;
-  --color-lime: #d8ff4a;
-  --color-night: #0a0d18;
-  --color-night-soft: #131826;
-  --color-good: #15c26a;
-  --color-warm: #ff7a3d;
-  --color-rose: #ff4d6d;
+  /* 监测台配色：暖纸底 + 深蓝黑仪表盘 + 信号橙 + 仪表盘绿 */
+  --color-canvas: #f7f5f0;
+  --color-canvas-deep: #efeae0;
+  --color-ink: #1b1a16;
+  --color-ink-soft: #5c5848;
+  --color-ink-muted: #948f7c;
+  --color-line: #d8d3c5;
+  --color-line-strong: #b9b3a0;
+  --color-accent: #ff5a36;
+  --color-accent-strong: #e6481f;
+  --color-lime: #ff5a36;
+  --color-night: #0d1b2e;
+  --color-night-soft: #142940;
+  --color-good: #1f7a6c;
+  --color-warm: #ff5a36;
+  --color-rose: #d3411f;
 
-  --color-card: #ffffff;
+  --color-card: #fffdf9;
   --color-card-foreground: var(--color-ink);
   --color-primary: var(--color-ink);
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #ffffff;
+  --color-primary-foreground: #fffdf9;
+  --color-secondary: #fffdf9;
   --color-secondary-foreground: var(--color-ink);
-  --color-muted: #f0f2f7;
+  --color-muted: #efeae0;
   --color-muted-foreground: var(--color-ink-soft);
-  --color-accent-foreground: #ffffff;
+  --color-accent-foreground: #fffdf9;
   --color-border: var(--color-line);
   --color-input: var(--color-line);
   --color-ring: var(--color-accent);
   --color-destructive: var(--color-rose);
 
-  --radius: 0.875rem;
+  --radius: 0.5rem;
   --radius-sm: calc(var(--radius) * 0.5);
   --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
@@ -53,8 +54,8 @@
 }
 
 :root {
-  --background: #f4f6fa;
-  --foreground: #0e1320;
+  --background: #f7f5f0;
+  --foreground: #1b1a16;
   color-scheme: light;
 }
 
@@ -74,56 +75,95 @@
   }
 }
 
-/* Eyebrow / overline */
+/* Eyebrow / overline —— 仪表盘读数标签 */
 .eyebrow {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent);
 }
 
 .hairline {
-  font-family: var(--font-sans);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 0.68rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ink-muted);
 }
 
 .display {
   font-family: var(--font-display);
-  font-weight: 760;
-  letter-spacing: -0.025em;
-  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
 }
 
-/* Dot pattern background used in hero */
-.dot-field {
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(34, 92, 255, 0.55) 0 3px, transparent 4px),
-    radial-gradient(circle at 80% 11%, rgba(255, 122, 61, 0.55) 0 3px, transparent 4px),
-    radial-gradient(circle at 36% 72%, rgba(21, 194, 106, 0.55) 0 3px, transparent 4px),
-    radial-gradient(circle at 62% 41%, rgba(14, 19, 32, 0.85) 0 3px, transparent 4px),
-    radial-gradient(circle at 92% 80%, rgba(34, 92, 255, 0.45) 0 3px, transparent 4px),
-    radial-gradient(circle at 8% 88%, rgba(14, 19, 32, 0.65) 0 3px, transparent 4px),
-    radial-gradient(circle at 50% 8%, rgba(21, 194, 106, 0.45) 0 3px, transparent 4px),
-    radial-gradient(circle at 22% 55%, rgba(14, 19, 32, 0.55) 0 2px, transparent 3px);
-  background-size: 100% 100%;
+/* 数据读数：mono 字体 + 下划线刻度，呼应"信号强度"母题 */
+.readout {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-feature-settings: "tnum";
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.05em;
 }
 
-/* Faint connector lines crossing the hero */
-.dot-field::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+/* 频道头：板块标题样式 —— 编号 + 信号灯 + 名称（顺序在导航中有真实意义） */
+.channel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+.channel-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent);
+  flex-shrink: 0;
+}
+.channel-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-ink-muted);
+  letter-spacing: 0.04em;
+}
+
+/* 仪表盘背景：等高线刻度网格，替代点阵装饰 */
+.dial-field {
   background-image:
-    linear-gradient(120deg, transparent 49.85%, rgba(14, 19, 32, 0.06) 49.85% 50.05%, transparent 50.05%),
-    linear-gradient(60deg, transparent 49.85%, rgba(14, 19, 32, 0.06) 49.85% 50.05%, transparent 50.05%);
-  background-size: 220px 220px;
-  pointer-events: none;
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 64px),
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255, 90, 54, 0.18), transparent 70%);
+}
+
+/* 频道选择器：hero 锚点导航，做成电台调频按钮 */
+.tuner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.4rem;
+  padding: 0 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: rgba(255, 253, 249, 0.78);
+  transition: all 0.15s ease;
+}
+.tuner-btn:hover {
+  border-color: var(--color-accent);
+  color: #fffdf9;
+  background: rgba(255, 90, 54, 0.12);
+}
+.tuner-btn .tuner-idx {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-accent);
 }
 
 /* Pill-style chip */
@@ -133,9 +173,9 @@
   gap: 0.4rem;
   height: 1.85rem;
   padding: 0 0.75rem;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-line);
-  background: #fff;
+  background: var(--color-card);
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--color-ink-soft);
@@ -144,10 +184,10 @@
 .chip:hover { border-color: var(--color-ink); color: var(--color-ink); }
 .chip[data-active="true"] {
   background: var(--color-ink);
-  color: #fff;
+  color: #fffdf9;
   border-color: var(--color-ink);
 }
-.chip[data-tone="lime"] { background: var(--color-lime); color: var(--color-ink); border-color: transparent; }
+.chip[data-tone="lime"] { background: var(--color-accent); color: #fffdf9; border-color: transparent; }
 
 /* CTA button */
 .btn {
@@ -156,30 +196,30 @@
   justify-content: center;
   height: 2.6rem;
   padding: 0 1.1rem;
-  border-radius: 0.7rem;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: 0.92rem;
   border: 1px solid var(--color-line-strong);
-  background: #fff;
+  background: var(--color-card);
   color: var(--color-ink);
   transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 .btn:hover { border-color: var(--color-ink); }
-.btn-primary { background: var(--color-ink); color: #fff; border-color: var(--color-ink); }
-.btn-primary:hover { background: #1f2a44; }
-.btn-lime { background: var(--color-lime); color: var(--color-ink); border-color: transparent; }
-.btn-lime:hover { background: #c5ec33; }
+.btn-primary { background: var(--color-ink); color: #fffdf9; border-color: var(--color-ink); }
+.btn-primary:hover { background: var(--color-night-soft); }
+.btn-lime { background: var(--color-accent); color: #fffdf9; border-color: transparent; }
+.btn-lime:hover { background: var(--color-accent-strong); }
 
 /* Card surface */
 .surface {
-  background: #fff;
+  background: var(--color-card);
   border: 1px solid var(--color-line);
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
 }
 .surface-night {
   background: var(--color-night);
-  color: #fff;
-  border-radius: 1.25rem;
+  color: #fffdf9;
+  border-radius: var(--radius-xl);
 }
 
 /* Topbar pill nav */
@@ -188,7 +228,7 @@
   height: 2.1rem;
   padding: 0 0.95rem;
   align-items: center;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   font-size: 0.86rem;
   color: var(--color-ink-soft);
@@ -196,7 +236,7 @@
 }
 .tabpill[data-active="true"] {
   background: var(--color-ink);
-  color: #fff;
+  color: #fffdf9;
 }
 .tabpill:hover { color: var(--color-ink); }
 
@@ -213,6 +253,148 @@ section[id], div[id] {
 }
 .btn-xhs:hover {
   background: #e51736;
+}
+
+/* ====== Hero 动效 ====== */
+
+/* 雷达扫描线 —— 绕中心旋转的扇形光束 */
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.radar-sweep {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 90, 54, 0.0) 280deg,
+    rgba(255, 90, 54, 0.18) 340deg,
+    rgba(255, 90, 54, 0.42) 358deg,
+    rgba(255, 90, 54, 0.0) 360deg
+  );
+  border-radius: 50%;
+  animation: radar-sweep 6s linear infinite;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+}
+
+/* 雷达同心圆 */
+.radar-rings::before,
+.radar-rings::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1px solid rgba(255, 253, 249, 0.08);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.radar-rings::before { width: 60%; height: 60%; }
+.radar-rings::after  { width: 90%; height: 90%; border-color: rgba(255, 253, 249, 0.05); }
+
+@keyframes ring-pulse {
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+}
+.radar-pulse {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 60%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 90, 54, 0.5);
+  border-radius: 50%;
+  animation: ring-pulse 4s ease-out infinite;
+}
+.radar-pulse.delay-1 { animation-delay: 1.3s; }
+.radar-pulse.delay-2 { animation-delay: 2.6s; }
+
+/* 信号点：术语标签从黑暗中浮现 */
+@keyframes signal-cycle {
+  0%        { opacity: 0; transform: scale(0.6); }
+  8%, 32%   { opacity: 0.45; transform: scale(1); }
+  55%, 100% { opacity: 0; transform: scale(0.6); }
+}
+.signal {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: signal-cycle 9s ease-in-out infinite;
+  pointer-events: none;
+  transform-origin: left center;
+}
+.signal-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 6px rgba(255, 90, 54, 0.5);
+  flex-shrink: 0;
+}
+.signal-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255, 253, 249, 0.7);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.signal-meta {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 400;
+  color: rgba(255, 90, 54, 0.6);
+  letter-spacing: 0.08em;
+}
+
+/* 频道圆点心跳 */
+@keyframes dot-beat {
+  0%, 100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent); }
+  50%      { box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-accent) 0%, transparent); }
+}
+.channel-dot { animation: dot-beat 2s ease-in-out infinite; }
+
+/* 标题进场 */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-rise { animation: hero-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+/* 网格背景轻微推移 */
+@keyframes grid-drift {
+  from { background-position: 0 0, 0 0, 50% 0%; }
+  to   { background-position: 64px 64px, 64px 64px, 50% 0%; }
+}
+.dial-field { animation: grid-drift 18s linear infinite; }
+
+/* 标题闪烁光标 */
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.hero-caret {
+  display: inline-block;
+  width: 0.12em;
+  height: 0.85em;
+  background: var(--color-accent);
+  margin-left: 0.06em;
+  vertical-align: -0.1em;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+/* 滚动提示 */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(8px); opacity: 1; }
+}
+.scroll-hint { animation: scroll-hint 2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .radar-sweep, .radar-pulse, .blip, .channel-dot, .hero-rise, .dial-field, .hero-caret, .scroll-hint {
+    animation: none !important;
+  }
 }
 
 /* Score bar */
