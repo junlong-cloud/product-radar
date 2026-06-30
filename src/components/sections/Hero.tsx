@@ -100,7 +100,7 @@ export function Hero() {
           className="hero-rise mt-6 flex flex-wrap items-center gap-3"
           style={{ animationDelay: "0.45s" }}
         >
-          <span className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] bg-accent px-3 py-1.5 font-mono text-[12px] font-bold tracking-wide text-[#fffdf9]">
+          <span className="inline-flex h-[2.4rem] items-center gap-2 rounded-[var(--radius-sm)] bg-accent px-4 text-[0.86rem] font-semibold text-[#fffdf9]">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#fffdf9]" />
             每周一 8:00 更新
           </span>
@@ -108,14 +108,14 @@ export function Hero() {
             href="https://github-zh-trending.netlify.app/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] border border-[#fffdf9]/15 bg-[#fffdf9]/[0.04] px-3 py-1.5 font-mono text-[12px] tracking-wide text-[#fffdf9]/80 transition-colors hover:border-accent hover:bg-accent/10 hover:text-[#fffdf9]"
+            className="inline-flex h-[2.4rem] items-center gap-2 rounded-[var(--radius-sm)] border border-[#fffdf9]/16 bg-[#fffdf9]/[0.04] px-4 text-[0.86rem] font-semibold text-[#fffdf9]/80 transition-colors hover:border-accent hover:bg-accent/10 hover:text-[#fffdf9]"
           >
             GitHub 中文榜单
             <span className="text-accent">↗</span>
           </a>
           <a
             href="#skills"
-            className="inline-flex items-center gap-2 rounded-[var(--radius-sm)] border border-[#fffdf9]/15 bg-[#fffdf9]/[0.04] px-3 py-1.5 font-mono text-[12px] tracking-wide text-[#fffdf9]/80 transition-colors hover:border-accent hover:bg-accent/10 hover:text-[#fffdf9]"
+            className="inline-flex h-[2.4rem] items-center gap-2 rounded-[var(--radius-sm)] border border-[#fffdf9]/16 bg-[#fffdf9]/[0.04] px-4 text-[0.86rem] font-semibold text-[#fffdf9]/80 transition-colors hover:border-accent hover:bg-accent/10 hover:text-[#fffdf9]"
           >
             GitHub 周度新星
             <span className="text-accent">↓</span>
@@ -123,7 +123,7 @@ export function Hero() {
         </div>
 
         <nav
-          className="hero-rise mt-10 flex flex-wrap gap-3"
+          className="hero-rise mt-4 flex flex-wrap gap-3"
           style={{ animationDelay: "0.55s" }}
           aria-label="板块导航"
         >
